@@ -5,10 +5,8 @@
 #include "BlackJack.h"
 
 // ブラックジャックの定数
-enum BlackJackNum {
-  BLACKJACK_SCORE = 21,
-  DEALER_STAND_SCORE = 17
-};
+constexpr int DEALER_STAND = 17;
+constexpr int BLACKJACK = 21;
 
 // 勝敗
 enum Results {
@@ -41,7 +39,7 @@ void BlackJack::ProcessBlackJack() {
   dealCards();
 
   // プレイヤーのカードの合計がブラックジャック値未満
-  if (playerHands.SumHands() < BLACKJACK_SCORE)
+  if (playerHands.SumHands() < BLACKJACK)
   {
     // プレイヤー行動選択フェーズ
     playerTurn();
@@ -76,8 +74,8 @@ void BlackJack::dealCards() {
  * プレイヤー行動選択フェーズ
  */
 void BlackJack::playerTurn() {
-  // BLACKJACK_SCORE以上となるまで回す
-  while (playerHands.SumHands() < BLACKJACK_SCORE)
+  // BLACKJACK以上となるまで回す
+  while (playerHands.SumHands() < BLACKJACK)
   {
     // 入力値を格納する変数
     std::string playerChoice;
@@ -105,7 +103,7 @@ void BlackJack::playerTurn() {
   }
 
   // プレイヤーの手札の合計が21を超えている場合
-  if (playerHands.SumHands() > BLACKJACK_SCORE)
+  if (playerHands.SumHands() > BLACKJACK)
   {
     display.ShowMessage("Player: Over Score.");
   }
@@ -125,8 +123,8 @@ void BlackJack::playerTurn() {
  * ディーラー行動フェーズ
  */
 void BlackJack::dealerTurn() {
-  // ディーラーのカードの合計がDEALER_STAND_SCORE以上となるまで回す
-  while (dealerHands.SumHands() < DEALER_STAND_SCORE)
+  // ディーラーのカードの合計がDEALER_STAND以上となるまで回す
+  while (dealerHands.SumHands() < DEALER_STAND)
   {
     // カードを引く
     dealerHands.DrowCard(deck);
@@ -156,19 +154,19 @@ int BlackJack::checkResults() const {
   int dealerSumHands = dealerHands.SumHands();
 
   // プレイヤーとディーラーのどちらも21を超える
-  if (playerSumHands > BLACKJACK_SCORE &&
-      dealerSumHands > BLACKJACK_SCORE)
+  if (playerSumHands > BLACKJACK &&
+      dealerSumHands > BLACKJACK)
   {
     // 引き分け
     return DROW;
   }
   // プレイヤーのみ21を超える
-  if (playerSumHands > BLACKJACK_SCORE)
+  if (playerSumHands > BLACKJACK)
   {
     return LOSE;
   }
   // ディーラーのみ21を超える
-  if (dealerSumHands > BLACKJACK_SCORE)
+  if (dealerSumHands > BLACKJACK)
   {
     return WIN;
   }
