@@ -4,23 +4,6 @@
 
 #include "BlackJack.h"
 
-// ブラックジャックの定数
-constexpr int DEALER_STAND = 17;
-constexpr int BLACKJACK = 21;
-
-// 勝敗
-enum Results {
-  DROW = 0,
-  WIN = 1,
-  LOSE = 2
-};
-
-// 選択肢
-enum PlayerChoice {
-  STAY = 0, // カードを引かない
-  HIT = 1   // カードを引く
-};
-
 // コンストラクター
 BlackJack::BlackJack()
   : dealerTurnIsOver(false),
@@ -50,7 +33,7 @@ void BlackJack::ProcessBlackJack() {
   dealerTurn();
 
   // 勝敗判定フェーズ
-  int result = checkResults();
+  Results result = checkResults();
 
   // コンソールに結果を表示
   display.DisplayResult(result);
@@ -61,10 +44,10 @@ void BlackJack::ProcessBlackJack() {
  */
 void BlackJack::dealCards() {
   // プレイヤーから交互にカードを2枚引く
-  playerHands.DrowCard(deck);
-  dealerHands.DrowCard(deck);
-  playerHands.DrowCard(deck);
-  dealerHands.DrowCard(deck);
+  playerHands.DrawCard(deck);
+  dealerHands.DrawCard(deck);
+  playerHands.DrawCard(deck);
+  dealerHands.DrawCard(deck);
 
   // 引いた結果をコンソールに表示
   display.ReloadConsole(dealerHands, playerHands);
@@ -86,7 +69,7 @@ void BlackJack::playerTurn() {
     if (playerChoice == "hit")
     {
       // プレイヤーがカードを引く
-      playerHands.DrowCard(deck);
+      playerHands.DrawCard(deck);
 
       // コンソールの表示を更新
       display.ReloadConsole(dealerHands, playerHands);
@@ -127,7 +110,7 @@ void BlackJack::dealerTurn() {
   while (dealerHands.SumHands() < DEALER_STAND)
   {
     // カードを引く
-    dealerHands.DrowCard(deck);
+    dealerHands.DrawCard(deck);
 
     Sleep(2000);
 
@@ -149,7 +132,7 @@ void BlackJack::dealerTurn() {
 /**
  * 勝敗判定フェーズ
  */
-int BlackJack::checkResults() const {
+Results BlackJack::checkResults() const {
   int playerSumHands = playerHands.SumHands();
   int dealerSumHands = dealerHands.SumHands();
 
@@ -158,27 +141,27 @@ int BlackJack::checkResults() const {
       dealerSumHands > BLACKJACK)
   {
     // 引き分け
-    return DROW;
+    return Results::DRAW;
   }
   // プレイヤーのみ21を超える
   if (playerSumHands > BLACKJACK)
   {
-    return LOSE;
+    return Results::LOSE;
   }
   // ディーラーのみ21を超える
   if (dealerSumHands > BLACKJACK)
   {
-    return WIN;
+    return Results::WIN;
   }
   if (playerSumHands > dealerSumHands)
   {
-    return WIN;
+    return Results::WIN;
   }
   if (playerSumHands < dealerSumHands)
   {
-    return LOSE;
+    return Results::LOSE;
   }
 
   // 同点
-  return DROW;
+  return Results::DRAW;
 };

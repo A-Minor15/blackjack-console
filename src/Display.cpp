@@ -5,13 +5,6 @@
 #include "Display.h"
 #include <conio.h>
 
-// 勝敗
-enum Results {
-  DROW = 0,
-  WIN = 1,
-  LOSE = 2
-};
-
 // コンソールにメッセージを出力する関数
 void Display::ShowMessage
 (
@@ -63,21 +56,21 @@ void Display::SelectHitOrStay
 // コンソールに結果を表示する関数
 void Display::DisplayResult
 (
-  const int &result
+  const Results &result
 ) const
 {
   // 引数に応じて、結果をコンソールに結果を出力する
-  if (result == WIN)
+  if (result == Results::WIN)
   {
     std::cout << "Player WIN!!" << std::endl;
   }
-  else if (result == LOSE)
+  else if (result == Results::LOSE)
   {
     std::cout << "Player LOSE..." << std::endl;
   }
-  else if (result == DROW)
+  else if (result == Results::DRAW)
   {
-    std::cout << "DROW" << std::endl;
+    std::cout << "DRAW" << std::endl;
   }
 }
 

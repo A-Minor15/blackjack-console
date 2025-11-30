@@ -14,6 +14,7 @@
 #include "Hand.h"
 #include "Deck.h"
 #include "Display.h"
+#include "Defs.h"
 
 class BlackJack {
 
@@ -46,7 +47,7 @@ class BlackJack {
     void dealerTurn();
 
     // 勝敗判定フェーズ
-    int checkResults() const;
+    Results checkResults() const;
 
     // ブラックジャックオーバー判定
     bool judgeOverBlackJack

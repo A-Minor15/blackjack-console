@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "Hand.h"
+#include "Defs.h"
 
 class Display {
   public:
@@ -33,7 +34,7 @@ class Display {
     // コンソールに結果を表示
     void DisplayResult
     (
-      const int &result
+      const Results &result
     ) const;
   private:
     // 区切り線を表示

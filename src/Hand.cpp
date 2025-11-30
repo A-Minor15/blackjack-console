@@ -5,7 +5,7 @@
 #include "Hand.h"
 
 // 手札にカードを追加
-void Hand::DrowCard(Deck& deck) {
+void Hand::DrawCard(Deck& deck) {
   if (!deck.m_deck.empty())
   {
     // 山札からカードを一枚引き、手札に追加する

@@ -14,7 +14,7 @@
 class Hand {
   public:
     // 手札にカードを追加
-    void DrowCard
+    void DrawCard
     (
       Deck& deck
     );
