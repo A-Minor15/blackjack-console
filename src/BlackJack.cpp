@@ -10,8 +10,8 @@ BlackJack::BlackJack()
     playerTurnIsOver(false),
     deck(),
     display(),
-    playerHands(),
-    dealerHands()
+    playerHands(deck),
+    dealerHands(deck)
 {}
 
 /**
@@ -44,10 +44,10 @@ void BlackJack::ProcessBlackJack() {
  */
 void BlackJack::dealCards() {
   // プレイヤーから交互にカードを2枚引く
-  playerHands.DrawCard(deck);
-  dealerHands.DrawCard(deck);
-  playerHands.DrawCard(deck);
-  dealerHands.DrawCard(deck);
+  playerHands.DrawCard();
+  dealerHands.DrawCard();
+  playerHands.DrawCard();
+  dealerHands.DrawCard();
 
   // 引いた結果をコンソールに表示
   display.ReloadConsole(dealerHands, playerHands);
@@ -69,7 +69,7 @@ void BlackJack::playerTurn() {
     if (playerChoice == "hit")
     {
       // プレイヤーがカードを引く
-      playerHands.DrawCard(deck);
+      playerHands.DrawCard();
 
       // コンソールの表示を更新
       display.ReloadConsole(dealerHands, playerHands);
@@ -81,17 +81,17 @@ void BlackJack::playerTurn() {
     }
     else
     {
-      display.ShowMessage("Error: Type hit or stay.");
+      display.ShowMessage(Message::ErrorInvalidInput);
     }
   }
 
   // プレイヤーの手札の合計が21を超えている場合
   if (playerHands.SumHands() > BLACKJACK)
   {
-    display.ShowMessage("Player: Over Score.");
+    display.ShowMessage(Message::PlayerOverScore);
   }
 
-  display.ShowMessage("Player's turn is finished.");
+  display.ShowMessage(Message::PlayerTurnFinished);
 
   // プレイヤーの行動終了フラグtrue
   playerTurnIsOver = true;
@@ -110,7 +110,7 @@ void BlackJack::dealerTurn() {
   while (dealerHands.SumHands() < DEALER_STAND)
   {
     // カードを引く
-    dealerHands.DrawCard(deck);
+    dealerHands.DrawCard();
 
     Sleep(2000);
 
@@ -121,7 +121,7 @@ void BlackJack::dealerTurn() {
   // ディーラーの行動終了フラグtrue
   dealerTurnIsOver = true;
 
-  display.ShowMessage("Dealer's turn is finished.");
+  display.ShowMessage(Message::DealerTurnFinished);
 
   Sleep(2000);
 

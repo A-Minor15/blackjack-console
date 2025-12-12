@@ -13,11 +13,10 @@
 
 class Hand {
   public:
+    Hand(Deck& deck) : deck(deck) {}
+
     // 手札にカードを追加
-    void DrawCard
-    (
-      Deck& deck
-    );
+    void DrawCard();
 
     // 手札の合計を取得
     int SumHands() const;
@@ -25,6 +24,8 @@ class Hand {
     // 手札を取得
     const std::vector<Card>& GetHands() const;
   private:
+    // 山札
+    Deck& deck;
     // 手札
     std::vector<Card> hands;
 };

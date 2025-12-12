@@ -62,15 +62,15 @@ void Display::DisplayResult
   // 引数に応じて、結果をコンソールに結果を出力する
   if (result == Results::WIN)
   {
-    std::cout << "Player WIN!!" << std::endl;
+    std::cout << Message::ResultWin << std::endl;
   }
   else if (result == Results::LOSE)
   {
-    std::cout << "Player LOSE..." << std::endl;
+    std::cout << Message::ResultLose << std::endl;
   }
   else if (result == Results::DRAW)
   {
-    std::cout << "DRAW" << std::endl;
+    std::cout << Message::ResultDraw << std::endl;
   }
 }
 
@@ -78,7 +78,7 @@ void Display::DisplayResult
 void Display::displayLine() const
 {
   // コンソールに区切り線を出力
-  std::cout << "======================================================================" << std::endl;
+  std::cout << Message::SeparatorLine << std::endl;
 }
 
 // 手札を表示

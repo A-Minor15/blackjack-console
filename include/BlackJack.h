@@ -15,6 +15,7 @@
 #include "Deck.h"
 #include "Display.h"
 #include "Defs.h"
+#include "Messages.h"
 
 class BlackJack {
 

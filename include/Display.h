@@ -11,6 +11,7 @@
 
 #include "Hand.h"
 #include "Defs.h"
+#include "Messages.h"
 
 class Display {
   public:
